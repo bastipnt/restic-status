@@ -1,0 +1,29 @@
+{
+  "profiles": {
+    "home": {
+      "backup": {
+        "success": true,
+        "time": "2026-10-11T03:00:12.831077+02:00",
+        "error": "",
+        "stderr": "",
+        "duration": 754,
+        "files_new": 215,
+        "files_changed": 12,
+        "files_unmodified": 120034,
+        "dirs_new": 58,
+        "dirs_changed": 3,
+        "dirs_unmodified": 9000,
+        "files_total": 120261,
+        "bytes_added": 296536123,
+        "bytes_total": 81234567890
+      },
+      "check": {
+        "success": true,
+        "time": "2026-10-09T04:00:00Z",
+        "error": "",
+        "stderr": "",
+        "duration": 120
+      }
+    }
+  }
+}

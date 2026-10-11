@@ -1,0 +1,40 @@
+{
+  "profiles": {
+    "documents": {
+      "backup": {
+        "success": true,
+        "time": "2026-10-11T01:30:00-04:00",
+        "error": "",
+        "stderr": "",
+        "duration": 42,
+        "bytes_added": 1024,
+        "bytes_total": 2048,
+        "files_new": 1,
+        "files_changed": 2,
+        "files_unmodified": 3
+      },
+      "retention": { "success": true, "time": "2026-10-11T01:31:00-04:00", "error": "", "stderr": "", "duration": 3 }
+    },
+    "nas": {
+      "backup": {
+        "success": false,
+        "time": "2026-10-11T02:00:00Z",
+        "error": "exit status 1",
+        "stderr": "Fatal: unable to open repository at sftp:nas:/backup | test\n\n-- connection refused\n",
+        "duration": 5
+      }
+    },
+    "photos": {
+      "backup": {
+        "success": true,
+        "time": "2026-10-05T03:00:00Z",
+        "error": "",
+        "stderr": "",
+        "duration": 3600
+      }
+    },
+    "check-only": {
+      "check": { "success": false, "time": "2026-10-10T00:00:00Z", "error": "exit status 1", "stderr": "" }
+    }
+  }
+}
