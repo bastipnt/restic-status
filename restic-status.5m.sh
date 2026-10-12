@@ -166,6 +166,11 @@ menu_text() {
 # Plain text line without emoji / SF Symbol substitution.
 TXT="emojize=false symbolize=false"
 
+# Parameters for rows that open a submenu. SwiftBar 2.1.0/2.1.1 disable a
+# submenu row without an action once its text changes on refresh (e.g. "3h ago"
+# becoming "4h ago"), so give these rows a harmless action.
+PARENT="refresh=true $TXT"
+
 # ---------------------------------------------------------------------------
 # Parsing
 # ---------------------------------------------------------------------------
@@ -241,7 +246,7 @@ while IFS= read -r raw_file; do
 
   if [ ! -f "$file" ]; then
     total=$((total + 1)); n_error=$((n_error + 1))
-    add "$(menu_text "$(basename "$file")") — file not found | sfimage=xmark.circle $TXT"
+    add "$(menu_text "$(basename "$file")") — file not found | sfimage=xmark.circle $PARENT"
     add "--$(menu_text "$short_file" 200) | $TXT"
     add "--Set status-file in your resticprofile config | $TXT"
     continue
@@ -249,7 +254,7 @@ while IFS= read -r raw_file; do
 
   if ! records=$("$JQ" -r "$JQ_PROGRAM" "$file" 2>/dev/null); then
     total=$((total + 1)); n_error=$((n_error + 1))
-    add "$(menu_text "$(basename "$file")") — cannot parse | sfimage=xmark.circle $TXT"
+    add "$(menu_text "$(basename "$file")") — cannot parse | sfimage=xmark.circle $PARENT"
     add "--$(menu_text "$short_file" 200) | $TXT"
     add "--Open status file | bash=/usr/bin/open param1=-t param2=\"$file\" terminal=false"
     continue
@@ -293,7 +298,7 @@ while IFS= read -r raw_file; do
       label="$label $(human_age "$age")"
     fi
 
-    add "$(menu_text "$name" 60) — $label | sfimage=$icon $TXT"
+    add "$(menu_text "$name" 60) — $label | sfimage=$icon $PARENT"
     if [ -n "$epoch" ]; then
       add "--Last backup: $(format_time "$epoch") ($(human_age "$age")) | $TXT"
     fi

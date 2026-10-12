@@ -62,6 +62,19 @@ out=$(run "$FIX/empty.json")
 expect empty "$out" "sfimage=externaldrive.badge.questionmark"
 expect empty "$out" "No backups found"
 
+# Rows that open a submenu need an action, otherwise SwiftBar 2.1.0/2.1.1
+# disable them after a refresh changes their text.
+out=$(run "$FIX/multi.json,$FIX/ok.json,$FIX/invalid.json,$FIX/does-not-exist.json")
+bad=$(printf '%s\n' "$out" | awk '
+  prev != "" && /^--/ && $0 != "---" && prev !~ /^-/ && prev !~ /(refresh=true|bash=|href=)/ { print prev }
+  { prev = $0 }')
+if [ -z "$bad" ]; then
+  echo "ok   submenu-actions: all submenu rows have an action"
+else
+  echo "FAIL submenu-actions: rows without action:"; printf '%s\n' "$bad"
+  failures=$((failures + 1))
+fi
+
 if [ "$failures" -gt 0 ]; then
   echo "$failures failure(s)"; exit 1
 fi
